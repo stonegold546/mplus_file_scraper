@@ -1,3 +1,22 @@
+div id='home'
+  | Select all your Mplus output files: 
+  input name='output_files' id='output_files' type='file' multiple='' onchange='populateTextArea()' required='true'
+  button type='submit' id='upload' name='upload' onClick='uploadFiles()' Collate
+  br
+  br
+  | Please check to confirm that you have selected the right files:
+  br
+  textarea id='text-area' rows='15' cols='75' readonly=''
+  br
+  br
+  button type='reset' id='clear' name='clear' onClick='clearInputs()' Clear
+
+  p name=':warning' id=':warning'
+
+markdown:
+  ---
+
 link rel='stylesheet' href='index.css'
 script src='spin.min.js'
 script src='spinner.js'
+script src='index.js'

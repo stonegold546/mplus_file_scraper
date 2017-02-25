@@ -1,0 +1,6 @@
+input:invalid {
+  color: red;
+}
+p[name=':warning'] {
+  color: red;
+}
