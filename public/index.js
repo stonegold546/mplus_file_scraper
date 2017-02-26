@@ -21,7 +21,7 @@ function clearInputs () {
 
 function uploadFiles () {
   'use strict'
-  warning.innerText = text
+  warning.innerText = ''
   if (outputFiles.checkValidity() === false) {
     alert('Please select the files you wish to collate')
     return
