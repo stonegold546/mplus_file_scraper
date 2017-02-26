@@ -24,7 +24,8 @@ class FileParser
 
   def scanner
     ITEMS.map do |match|
-      @contents.scan(match)[0][0]
+      dat = @contents.scan(match)[0]
+      dat.nil? ? '' : dat[0]
     end
   end
 end
