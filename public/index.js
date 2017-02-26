@@ -17,6 +17,7 @@ function populateTextArea () {
 function clearInputs () {
   textArea.value = ''
   outputFiles.value = ''
+  warning.innerText = ''
 }
 
 function uploadFiles () {
@@ -48,8 +49,8 @@ function uploadFiles () {
         window.URL.revokeObjectURL(elem.href)
       } else if (myResult.readyState === 4 && myResult.status === 400) {
         warning.innerText = text
-      } else {
-        warning.innerText = text
+      } else if (myResult.readyState === 4 && myResult.status === 500) {
+        warning.innerText = 'Server crash lol'
       }
     }
     stopTheWheel('home')
