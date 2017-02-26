@@ -4,8 +4,6 @@ require 'slim/include'
 require 'kramdown'
 require 'rack-ssl-enforcer'
 require 'config_env'
-require 'oj'
-require 'httparty'
 require 'ap'
 require 'classy_hash'
 
