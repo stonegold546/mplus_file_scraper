@@ -8,7 +8,7 @@ require 'ap'
 require 'classy_hash'
 
 SCHEMA = {
-  filename: String,
+  filename: /\w.out/,
   type: %r{application/octet-stream},
   name: String,
   tempfile: Tempfile,
@@ -39,9 +39,13 @@ class MplusFileScraper < Sinatra::Base
 
   process_files = lambda do
     params.each do |_, file|
+      begin File.readlines(file[:tempfile]).grep(/monitor/)
+      rescue
+        halt 400, "#{file[:name]} is probably not an Mplus output file."
+      end
       begin ClassyHash.validate(file, SCHEMA)
       rescue => e
-        halt 400, e.message
+        halt 400, "#{file[:name]}: #{e.message}"
       end
     end
     combined_files = CombineFiles.new(params)

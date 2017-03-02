@@ -50,7 +50,7 @@ function uploadFiles () {
       } else if (myResult.readyState === 4 && myResult.status === 400) {
         warning.innerText = text
       } else if (myResult.readyState === 4 && myResult.status === 500) {
-        warning.innerText = 'Server crash lol'
+        warning.innerText = 'Server crash! This should not happen. You probably have a non-text output file in there.'
       }
     }
     stopTheWheel('home')
