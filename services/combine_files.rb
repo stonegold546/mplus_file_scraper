@@ -1,3 +1,5 @@
+DOUBLE_LINE = "\n\n".freeze
+
 # Central location
 class CombineFiles
   def initialize(params)
@@ -8,12 +10,12 @@ class CombineFiles
   end
 
   def call
-    result = combine
+    summary, classes = combine
     string = HEADERS.join(',') + "\n"
-    string += result.map do |hash|
+    string += summary.map do |hash|
       hash.values.join(',') + "\n"
     end.join
-    string
+    string + DOUBLE_LINE + classes.compact.join(DOUBLE_LINE)
   end
 
   def combine
@@ -21,6 +23,6 @@ class CombineFiles
       file = FileParser.new(name, file[:tempfile])
       file.call
     end
-    result
+    result.transpose
   end
 end

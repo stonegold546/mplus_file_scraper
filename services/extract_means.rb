@@ -6,7 +6,8 @@ RESULTS = /Model Results/
 
 # Get means from Model Results
 class ExtractMeans
-  def initialize(contents)
+  def initialize(file_name, contents)
+    @file_name = file_name
     @contents = contents
   end
 
@@ -18,7 +19,7 @@ class ExtractMeans
     return nil if dvs.nil?
     search_regexes = searches(num_classes, dvs)
     results = results(search_regexes)
-    ap results
+    make_csv(results, dvs)
   end
 
   def obtain_dvs
@@ -41,8 +42,17 @@ class ExtractMeans
     search_regexes.map do |variables|
       variables.map do |variable|
         result = @contents.scan(variable)[0]
-        result.nil? ? '' : result[0].to_f
+        result.nil? ? '' : result[0]
       end
     end
+  end
+
+  def make_csv(results, dvs)
+    results = results.insert(0, dvs)
+    results = results.each_with_index.map do |variables, i|
+      start = i.zero? ? 'Classes,' : "Class #{i},"
+      start + variables.join(',')
+    end.join("\n")
+    'source_file: ' + @file_name + "\n" + results
   end
 end
