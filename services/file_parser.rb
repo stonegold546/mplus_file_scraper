@@ -1,6 +1,5 @@
 # TODO: Fix TECH11 and TECH14
 
-CLASSES = /c\((\d*)/
 LL = /H0 Value\s+(\-?\d+\.?\d*)/
 DF = /Number of Free Parameters\s+(\d+)/
 AIC = /Akaike \(AIC\)\s+(\-?\d+\.?\d*)/
@@ -18,6 +17,7 @@ class FileParser
   end
 
   def call
+    ExtractMeans.new(@contents).call
     values = scanner << @name
     HEADERS.zip(values).to_h
   end

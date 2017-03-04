@@ -16,6 +16,7 @@ SCHEMA = {
 }.freeze
 
 HEADERS = %w(classes ll df aic bic entropy tech11 tech14 filename).freeze
+CLASSES = /c\((\d*)/
 
 configure :development, :test do
   ConfigEnv.path_to_config("#{__dir__}/config/config_env.rb")
