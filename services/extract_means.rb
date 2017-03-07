@@ -1,7 +1,7 @@
 # TODO: Fix TECH11 and TECH14
 
 NUM_DV = /Number of dependent variables\s+(\d+)/
-USE_VARS = /usevariables =\s+?(.+?);/m
+USE_VARS = /Observed dependent variables\s+Continuous\s+(.+?)\s+Categorical/m
 RESULTS = /Model Results/
 
 # Get means from Model Results
