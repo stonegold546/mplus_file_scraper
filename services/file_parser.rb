@@ -1,12 +1,10 @@
-# TODO: Fix TECH11 and TECH14
-
 LL = /H0 Value\s+(\-?\d+\.?\d*)/
 DF = /Number of Free Parameters\s+(\d+)/
 AIC = /Akaike \(AIC\)\s+(\-?\d+\.?\d*)/
 BIC = /Bayesian \(BIC\)\s+(\-?\d+\.?\d*)/
 ENTROPY = /Entropy\s+(\-?\d+\.?\d*)/
-TECH11 = /P-Value\s+(\-?\d+\.?\d*)/ # SPECIAL!!!!
-TECH14 = /Approximate P-Value\s+(\-?\d+\.?\d*)/
+TECH11 = /TECHNICAL 11 OUTPUT.+?RUBIN ADJUSTED LRT.+?P-Value\s+(\-?\d+\.?\d*)/m
+TECH14 = /TECHNICAL 14 OUTPUT.+?Approximate P-Value\s+(\-?\d+\.?\d*)/m
 ITEMS = [CLASSES, LL, DF, AIC, BIC, ENTROPY, TECH11, TECH14].freeze
 
 # File parsing class
