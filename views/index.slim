@@ -1,4 +1,9 @@
 div id='home'
+  | Analysis: 
+  select
+    option value='LPA' Latent Profile Analysis
+  br
+  br
   | Select all your Mplus output files: 
   input name='output_files' id='output_files' type='file' multiple='' onchange='populateTextArea()' required='true'
   button type='submit' id='upload' name='upload' onClick='uploadFiles()' Collate
