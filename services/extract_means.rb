@@ -1,14 +1,23 @@
 # TODO: Fix TECH11 and TECH14
 
-NUM_DV = /Number of dependent variables\s+(\d+)/
-USE_VARS = /Observed dependent variables\s+Continuous\s+(.+?)\s+Categorical/m
-RESULTS = /Model Results/
+PROB = 'RESULTS IN PROBABILITY SCALE'.freeze
+
+USE_VARS_C = Regexp.new(
+  'Observed dependent variables\s+Continuous\s+(.+?)\s+'\
+  'Categorical latent variables',
+  Regexp::MULTILINE
+)
+USE_VARS_B = Regexp.new(
+  'Observed dependent variables\s+Binary and ordered categorical \(ordinal\)'\
+  '\s+(.+?)\s+Categorical latent variables', Regexp::MULTILINE
+)
 
 # Get means from Model Results
 class ExtractMeans
   def initialize(file_name, contents)
     @file_name = file_name
     @contents = contents
+    @cat = nil
   end
 
   def call
@@ -23,7 +32,11 @@ class ExtractMeans
   end
 
   def obtain_dvs
-    dvs = @contents.scan(USE_VARS)[0]
+    dvs = @contents.scan(USE_VARS_C)[0]
+    if dvs.nil?
+      @cat = TRUE
+      dvs = @contents.scan(USE_VARS_B)[0]
+    end
     return nil if dvs.nil?
     dvs = dvs[0]
     dvs.split.map(&:upcase)
@@ -32,10 +45,13 @@ class ExtractMeans
   def searches(num_classes, dvs)
     (1..num_classes).to_a.map do |x|
       dvs.map do |dv|
-        Regexp.new("Latent Class #{x}.+?#{dv}.+?" + '(-?\d+.?\d+)',
-                   Regexp::MULTILINE)
-      end
-    end
+        if @cat
+          Regexp.new("#{PROB}.+?Latent Class #{x}.+?#{dv}.+?Category 2\\s+"\
+                     '(-?\d+.?\d+)', Regexp::MULTILINE)
+        else
+          Regexp.new("Latent Class #{x}.+?#{dv}.+?" + '(-?\d+.?\d+)',
+                     Regexp::MULTILINE)
+        end; end; end
   end
 
   def results(search_regexes)
