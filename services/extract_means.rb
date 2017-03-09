@@ -12,8 +12,8 @@ USE_VARS_B = Regexp.new(
   '\s+(.+?)\s+Categorical latent variables', Regexp::MULTILINE
 )
 
-# Get means from Model Results
-class ExtractMeans
+# Get means or probabilities from Model Results
+class ExtractMeansProbs
   def initialize(file_name, contents)
     @file_name = file_name
     @contents = contents

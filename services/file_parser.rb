@@ -15,7 +15,7 @@ class FileParser
   end
 
   def call
-    extraction_csv = ExtractMeans.new(@name, @contents).call
+    extraction_csv = ExtractMeansProbs.new(@name, @contents).call
     values = scanner << @name
     [HEADERS.zip(values).to_h, extraction_csv]
   end
