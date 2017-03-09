@@ -9,7 +9,8 @@ USE_VARS_C = Regexp.new(
 )
 USE_VARS_B = Regexp.new(
   'Observed dependent variables\s+Binary and ordered categorical \(ordinal\)'\
-  '\s+(.+?)\s+Categorical latent variables', Regexp::MULTILINE
+  '\s+(.+?)\s+Categorical latent variables',
+  Regexp::MULTILINE
 )
 
 # Get means or probabilities from Model Results
@@ -46,8 +47,8 @@ class ExtractMeansProbs
     (1..num_classes).to_a.map do |x|
       dvs.map do |dv|
         if @cat
-          Regexp.new("#{PROB}.+?Latent Class #{x}.+?#{dv}.+?Category 2\\s+"\
-                     '(-?\d+.?\d+)', Regexp::MULTILINE)
+          Regexp.new("#{PROB}.+?Latent Class #{x}.+?#{dv}.+?Category 2"\
+                     '\s+(-?\d+.?\d+)', Regexp::MULTILINE)
         else
           Regexp.new("Latent Class #{x}.+?#{dv}.+?" + '(-?\d+.?\d+)',
                      Regexp::MULTILINE)
