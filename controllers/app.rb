@@ -56,4 +56,8 @@ class MplusFileScraper < Sinatra::Base
   get '/', &root
 
   post '/files/?', &process_files
+
+  get '/keybase.txt' do
+    File.read(File.join('public', 'keybase.txt'))
+  end
 end
