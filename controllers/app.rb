@@ -15,7 +15,9 @@ SCHEMA = {
   head: String
 }.freeze
 
-HEADERS = %w(classes ll df aic bic entropy tech11 tech14 filename).freeze
+HEADERS = %w(
+  classes LL DF AIC BIC aBIC Entropy tech11_LMR_p tech14_approx_p filename
+).freeze
 CLASSES = /c\((\d*)/
 
 configure :development, :test do
