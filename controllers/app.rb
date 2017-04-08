@@ -16,7 +16,8 @@ SCHEMA = {
 }.freeze
 
 HEADERS = %w(
-  classes LL DF AIC BIC aBIC Entropy tech11_LMR_p tech14_approx_p filename
+  classes LL Free\ Parameters AIC BIC SABIC Entropy tech11_LMR_p
+  tech14_approx_p filename
 ).freeze
 CLASSES = /c\((\d*)/
 
