@@ -49,13 +49,20 @@ class LCAInpBatMaker
     syntaxes.map do |key, value|
       bat_dat << "(#{newline}"
       value.split("\n").map do |line|
-        line =
-          @sys_os == 'unix' ? Shellwords.escape(line) : line.gsub(')', '^)')
+        line = escape(line)
         bat_dat << "echo #{line}#{newline}"
       end
       bat_dat << ")> #{key}#{newline}#{@mplus_type} #{key}#{newline}"
     end
     bat_dat
+  end
+
+  def escape(line)
+    if @sys_os == 'unix' then Shellwords.escape(line)
+    else
+      line.gsub('^', '^^').gsub('%', '%%').gsub('\\', '^\\').gsub('!', '^^!')
+          .gsub('&', '^&').gsub(')', '^)').gsub(/\s+/, ' ')
+    end
   end
 
   def clean_dir_structure(bat_dat, dir_name, newline)
