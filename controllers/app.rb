@@ -20,6 +20,8 @@ HEADERS = %w(
   tech14_approx_p filename
 ).freeze
 CLASSES = /c\((\d*)/
+TOO_FEW = 'Number of classes in syntax file must not be less than 1 and'\
+  ' must not be less than or equal to the maximum number of classes.'.freeze
 
 configure :development, :test do
   ConfigEnv.path_to_config("#{__dir__}/config/config_env.rb")
@@ -56,9 +58,20 @@ class MplusFileScraper < Sinatra::Base
     combined_files.call
   end
 
+  lca_inps = lambda do
+    lca_inp_vals = LcaInpVal.new(params)
+    halt 400, lca_inp_vals.errors.messages.to_s unless lca_inp_vals.valid?
+    lca_inp_bat = LCAInpBatMaker.new(lca_inp_vals)
+    results = lca_inp_bat.call
+    halt 400, TOO_FEW if results == '400_TOO_FEW'
+    results
+  end
+
   get '/', &root
 
   post '/files/?', &process_files
+
+  post '/lca_inps/?', &lca_inps
 
   get '/keybase.txt' do
     File.read(File.join('public', 'keybase.txt'))

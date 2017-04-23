@@ -1,23 +1,71 @@
 div id='home'
+  markdown:
+    ---
+
+    ### Create LCA models
+
+  | Maximum number of classes: 
+  input type='number' class='lca-inp' id='max_num_classes' required='true' min=2 max=20 step='1'
+  |   Mplus type: 
+  select id='mplus_type'
+    option value='mplus' selected='selected' Mplus
+    option value='mpdemo' Mplus demo
+  |   OS: 
+  select id='sys_os'
+    option value='windows' disabled='true' Windows
+    option value='unix' selected='selected' MacOS / Linux
+  br
+  br
+  | Copy and paste your Mplus syntax file here. Use the minimum number of classes in this syntax file. Please write your CLASSES definition on only one line.
+  br
+  br
+  textarea id='lca_inp_area' class='lca-inp' rows='30' cols='75'
+  br
+  br
+  button type='submit' id='inp-text' name='inp-text' onClick='inpUpload()' Download Mplus automation file
+  / button type='reset' id='clear' name='clear' onClick="clearInputs(1)" Clear
+
+  div align='left'
+    markdown:
+      >
+      ### Use instructions
+      1. The downloaded file will create your Mplus syntax files for the number of requested classes and call Mplus to run the files.
+      1. Copy the downloaded file into the same folder as your Mplus data file.
+      1. Double-click the file to run it.
+      1. An input folder with Mplus input files and output folder with Mplus output files will be created when the execution of the file is done.
+        - You can collate the output files using the Collate segment.
+      >
+      #### Linux Users
+      - If you are using **Linux**, you need to make the file an executable to run it.
+      - On Ubuntu, right-click the file, select _Properties_, then the _Permissions_ tab. Click _Allow executing file as program_. Close _Properties_
+      - Alternatively through terminal: `chmod +x <file>`
+
+  p name=':warning' id=':lcaInpWarning'
+
+  markdown:
+    ---
+    
+    ### Collate your Mplus output files
+
   | Analysis: 
-  select
+  select class='collate'
     option value='' selected='selected' Please choose an analysis
     option value='LPA' Latent Profile/Class Analysis
   br
   br
   | Select all your Mplus output files: 
-  input name='output_files' id='output_files' type='file' multiple='' onchange='populateTextArea()' required='true'
+  input class='collate' name='output_files' id='output_files' type='file' multiple='' onchange='populateTextArea()' required='true' accept='.out'
   button type='submit' id='upload' name='upload' onClick='uploadFiles()' Collate
   br
   br
   | Please check to confirm that you have selected the right files:
   br
-  textarea id='text-area' rows='15' cols='75' readonly=''
+  textarea class='collate' id='text-area' rows='15' cols='75' readonly=''
   br
   br
-  button type='reset' id='clear' name='clear' onClick='clearInputs()' Clear
+  button type='reset' id='clear' name='clear' onClick="clearInputs(2)" Clear
 
-  p name=':warning' id=':warning'
+  p name=':warning' id=':collateWarning'
 
 markdown:
   ---
