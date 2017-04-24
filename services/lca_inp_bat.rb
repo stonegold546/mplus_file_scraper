@@ -34,11 +34,11 @@ class LCAInpBatMaker
 
   def create_bat_file(newline)
     work_dir, copy =
-      if @sys_os == 'windows' then ['%~dp0\\', 'xcopy']
+      if @sys_os == 'windows' then ['', 'xcopy']
       else ['./', 'cp']
       end
     date_time = DateTime.now.to_s.gsub(/[^0-9a-z]/i, '')
-    output_folder = "#{work_dir}output-#{date_time}"
+    output_folder = "#{work_dir}output-#{date_time}\\"
     bat_dat = "mkdir #{output_folder}#{newline}"
     bat_dat << "#{copy} #{@dat_file} #{output_folder}#{newline}"
     bat_dat << "cd #{work_dir}output-#{date_time}#{newline}"
