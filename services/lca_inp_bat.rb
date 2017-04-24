@@ -50,7 +50,7 @@ class LCAInpBatMaker
       bat_dat << "(#{newline}"
       value.split("\n").map do |line|
         line = escape(line)
-        bat_dat << "echo #{line}#{newline}"
+        bat_dat << "echo #{line}#{newline}" unless line.strip.empty?
       end
       bat_dat << ")> #{key}#{newline}#{@mplus_type} #{key}#{newline}"
     end
