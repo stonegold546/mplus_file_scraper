@@ -25,7 +25,7 @@ function clearInputs (group) {
     maxClasses.value = ''
     lcaInpWarning.innerText = ''
     mplusType.value = 'mplus'
-    sysOs.value = 'unix'
+    sysOs.value = ''
   } else if (group === 2) {
     textArea.value = ''
     outputFiles.value = ''
@@ -74,13 +74,17 @@ function uploadFiles () {
 function inpUpload () {
   'use strict'
   lcaInpWarning.innerText = ''
-  if (maxClasses.checkValidity() === false) {
-    alert('Please select a maximum number of classes between than 2 and 20 inclusive.')
-    maxClasses.focus()
+  if (sysOs.value === '') {
+    alert('Please select your operating system.')
+    sysOs.focus()
     return
   } else if (lcaInpArea.value === '') {
     alert('Please copy and paste your input file into the text area.')
     lcaInpArea.focus()
+    return
+  } else if (maxClasses.checkValidity() === false) {
+    alert('Please select a maximum number of classes between than 2 and 20 inclusive.')
+    maxClasses.focus()
     return
   } else {
     var myResult = new XMLHttpRequest()
