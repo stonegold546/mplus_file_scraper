@@ -9,6 +9,7 @@ var lcaInpArea = document.getElementById('lca_inp_area')
 var lcaInpWarning = document.getElementById(':lcaInpWarning')
 var mplusType = document.getElementById('mplus_type')
 var sysOs = document.getElementById('sys_os')
+var autoCollate = document.getElementById('auto_collate')
 
 function populateTextArea () {
   'use strict'
@@ -26,6 +27,7 @@ function clearInputs (group) {
     lcaInpWarning.innerText = ''
     mplusType.value = 'mplus'
     sysOs.value = ''
+    autoCollate.value = 'yes'
   } else if (group === 2) {
     textArea.value = ''
     outputFiles.value = ''
@@ -94,6 +96,7 @@ function inpUpload () {
     lcaInps.append(lcaInpArea.id, lcaInpArea.value)
     lcaInps.append(mplusType.id, mplusType.value)
     lcaInps.append(sysOs.id, sysOs.value)
+    lcaInps.append(autoCollate.id, autoCollate.value)
     spinTheWheel('home')
     myResult.open('post', url, true)
     myResult.send(lcaInps)

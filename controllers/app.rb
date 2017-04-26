@@ -24,7 +24,7 @@ TOO_FEW = 'Number of classes in syntax file must not be less than 1 and'\
   ' must not be greater than or equal to the maximum number of classes.'.freeze
 
 configure :development, :test do
-  ConfigEnv.path_to_config("#{__dir__}/config/config_env.rb")
+  ConfigEnv.path_to_config('config/config_env.rb')
 end
 
 # Base app

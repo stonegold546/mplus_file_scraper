@@ -10,6 +10,7 @@ class LcaInpVal
   attribute :lca_inp_area, String
   attribute :mplus_type, String
   attribute :sys_os, String
+  attribute :auto_collate, String
 
   validates_numericality_of :max_num_classes, greater_than_or_equal_to: 2,
                                               less_than_or_equal_to: 20
@@ -21,4 +22,5 @@ class LcaInpVal
   }
   validates_inclusion_of :mplus_type, in: %w(mplus mpdemo)
   validates_inclusion_of :sys_os, in: %w(windows unix)
+  validates_inclusion_of :auto_collate, in: %w(yes no)
 end

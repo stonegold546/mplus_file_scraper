@@ -9,6 +9,7 @@ class LCAInpBatMaker
     @min_classes =
       @lca_inp_area.scan(/clas.*=.*c.*\(.*\d+.*\)/i)[0].scan(/\d+/)[0].to_i
     @sys_os = lca_inp_vals.sys_os
+    @auto_col = lca_inp_vals.auto_collate
   end
 
   def call
@@ -17,7 +18,9 @@ class LCAInpBatMaker
     newline = @sys_os == 'windows' ? "\r\n" : "\n"
     bat_dat, dir_name = create_bat_file(newline)
     bat_dat = add_syntax(bat_dat, syntaxes, newline)
-    clean_dir_structure(bat_dat, dir_name, newline)
+    bat_dat = clean_dir_structure(bat_dat, dir_name, newline)
+    return bat_dat if @auto_col == 'no'
+    collate(bat_dat, dir_name, newline)
   end
 
   def inputs
@@ -74,6 +77,17 @@ class LCAInpBatMaker
     bat_dat << "#{move} output-#{dir_name}#{dir_slash}inp_file_*.inp "\
       "input-#{dir_name}#{dir_slash}#{newline}"
     bat_dat << "#{del} output-#{dir_name}#{dir_slash}#{@dat_file}"
+    bat_dat
+  end
+
+  def collate(bat_dat, dir_name, newline)
+    return bat_dat if @sys_os == 'windows'
+    bat_dat << "#{newline}cd output-#{dir_name}#{newline}curl"
+    (@min_classes..@max_num_classes).to_a.map do |num_classes|
+      file_name = "inp_file_#{num_classes}.out"
+      bat_dat << " -F '#{file_name}=@#{file_name}'"
+    end
+    bat_dat << " #{ENV['MPLUS_SITE']}/files > ../result.csv"
     bat_dat
   end
 end
