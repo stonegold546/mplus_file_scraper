@@ -87,7 +87,7 @@ class LCAInpBatMaker
       file_name = "inp_file_#{num_classes}.out"
       bat_dat << " -F '#{file_name}=@#{file_name}'"
     end
-    bat_dat << " #{ENV['MPLUS_SITE']}/files > ../result.csv"
+    bat_dat << " #{ENV['MPLUS_SITE']}/files > ../result-#{dir_name}.csv"
     bat_dat
   end
 end
