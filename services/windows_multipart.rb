@@ -17,7 +17,7 @@ class WindowsMultipart
     @bat_dat << "\r\ncd output-#{@dir_name}\r\n"
     create_powershell_script
     @bat_dat << 'PowerShell.exe -executionpolicy remotesigned -File collate.ps1'
-    @bat_dat << 'del collate.ps1'
+    @bat_dat << "\r\ndel collate.ps1"
     @bat_dat
   end
 
