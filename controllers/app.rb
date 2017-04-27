@@ -44,7 +44,7 @@ class MplusFileScraper < Sinatra::Base
   end
 
   process_files = lambda do
-    ap params
+    halt 400, 'No file uploaded' if params.empty?
     params.each do |_, file|
       begin File.readlines(file[:tempfile]).grep(/monitor/)
       rescue
