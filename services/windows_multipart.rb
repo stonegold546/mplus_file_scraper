@@ -26,7 +26,7 @@ class WindowsMultipart
     define_other_vars
     @bat_dat << 'echo Invoke-RestMethod -Uri $URL -Method Post '\
       '-ContentType "multipart/form-data; boundary=`"$boundary`"" '\
-      "-Body $text > ..\\result-#{@dir_name}.csv\r\n"
+      "-Body $text -Outfile ..\\result-#{@dir_name}.csv\r\n"
     @bat_dat << ")> collate.ps1\r\n"
   end
 
