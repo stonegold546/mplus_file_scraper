@@ -81,7 +81,8 @@ class LCAInpBatMaker
   end
 
   def collate(bat_dat, dir_name, newline)
-    return bat_dat if @sys_os == 'windows'
+    windows_stuff = [bat_dat, @min_classes, @max_num_classes, dir_name]
+    return WindowsMultipart.new(windows_stuff).call if @sys_os == 'windows'
     bat_dat << "#{newline}cd output-#{dir_name}#{newline}curl"
     (@min_classes..@max_num_classes).to_a.map do |num_classes|
       file_name = "inp_file_#{num_classes}.out"
