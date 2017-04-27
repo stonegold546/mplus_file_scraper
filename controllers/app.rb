@@ -9,7 +9,7 @@ require 'classy_hash'
 
 SCHEMA = {
   filename: /\w.out/,
-  type: %r{application/octet-stream},
+  # type: %r{application/octet-stream},
   name: String,
   tempfile: Tempfile,
   head: String
