@@ -10,7 +10,7 @@ class WindowsMultipart
     @max_classes = windows_stuff[2]
     @dir_name = windows_stuff[3]
     @boundary = boundary
-    @crlf = '\r\n'
+    @crlf = '`n'
   end
 
   def call
