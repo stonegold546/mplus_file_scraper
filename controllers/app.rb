@@ -44,6 +44,7 @@ class MplusFileScraper < Sinatra::Base
   end
 
   process_files = lambda do
+    ap params
     params.each do |_, file|
       begin File.readlines(file[:tempfile]).grep(/monitor/)
       rescue
