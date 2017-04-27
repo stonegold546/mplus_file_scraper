@@ -4,10 +4,8 @@ class LCAInpBatMaker
     @max_num_classes = lca_inp_vals.max_num_classes
     @mplus_type = lca_inp_vals.mplus_type
     @lca_inp_area = lca_inp_vals.lca_inp_area
-    @dat_file =
-      @lca_inp_area.scan(/data.*:.*FILE\s?I?S?\s?(.*.dat)/i)[0][0].strip
-    @min_classes =
-      @lca_inp_area.scan(/clas.*=.*c.*\(.*\d+.*\)/i)[0].scan(/\d+/)[0].to_i
+    @dat_file = lca_inp_vals.dat_file
+    @min_classes = lca_inp_vals.min_classes
     @sys_os = lca_inp_vals.sys_os
     @auto_col = lca_inp_vals.auto_collate
   end

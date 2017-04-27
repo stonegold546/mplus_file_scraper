@@ -23,4 +23,12 @@ class LcaInpVal
   validates_inclusion_of :mplus_type, in: %w(mplus mpdemo)
   validates_inclusion_of :sys_os, in: %w(windows unix)
   validates_inclusion_of :auto_collate, in: %w(yes no)
+
+  def dat_file
+    lca_inp_area.scan(/data.*:.*FILE\s?I?S?\s?(.*.dat)/i)[0][0].strip
+  end
+
+  def min_classes
+    lca_inp_area.scan(/clas.*=.*c.*\(.*\d+.*\)/i)[0].scan(/\d+/)[0].to_i
+  end
 end
