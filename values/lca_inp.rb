@@ -25,7 +25,7 @@ class LcaInpVal
   validates_inclusion_of :auto_collate, in: %w(yes no)
 
   def dat_file
-    lca_inp_area.scan(/data.*:.*FILE\s?I?S?\s?(.*.dat)/i)[0][0].strip
+    lca_inp_area.scan(/data.*:.*FILE\s?I?S?=?\s?(.*.dat)/i)[0][0].strip
   end
 
   def min_classes
