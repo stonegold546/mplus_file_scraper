@@ -18,14 +18,15 @@ class LcaInpVal
     with: /clas.*=.*c.*\(.*\d+.*\)/i
   }
   validates :lca_inp_area, format: {
-    with: /data.*:.*FILE\s?I?S?\s?.*.(dat|txt)/i
+    with: /data.*:.*\s*?FILE\s?I?S?\s?.*.(dat|txt)/i
   }
   validates_inclusion_of :mplus_type, in: %w[mplus mpdemo]
   validates_inclusion_of :sys_os, in: %w[windows unix]
   validates_inclusion_of :auto_collate, in: %w[yes no]
 
   def dat_file
-    lca_inp_area.scan(/data.*:.*FILE\s?I?S?=?\s?(.*.(dat|txt))/i)[0][0].strip
+    lca_inp_area.scan(/data.*:.*\s*?FILE\s?I?S?=?\s?(.*.(dat|txt))/i)[0][0]
+                .strip
   end
 
   def min_classes
